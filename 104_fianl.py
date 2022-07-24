@@ -80,8 +80,8 @@ for i in all:
 con = pymysql.connect(
       host= "azsqltop.mysql.database.azure.com",
       port= 3306,
-      user= "jeff",
-      password= "@a0987399832",
+      user= "",
+      password= "",
       database = "career")
 cur = con.cursor()
 
