@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -17,17 +12,13 @@ import time
 import pandas as pd
 
 
-# In[ ]:
+
 
 
 USERNAME = input("Enter the username: ")
 PASSWORD = input("Enter the password: ")
 print(USERNAME)
 print(PASSWORD)
-
-
-# In[ ]:
-
 
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -65,9 +56,6 @@ for i in range(1,41):
         disc_list.append(soup.text)
 
 
-# In[ ]:
-
-
 # 爬蟲整理
 df = pd.DataFrame(disc_list)
 df = df.replace(['\n',
@@ -95,10 +83,9 @@ df = df.replace(['\n',
                  '^.*?se:',
                  '^.*?REQUISITOS'
                  ], '', regex=True)
-df
 
 
-# In[ ]:
+
 
 
 
