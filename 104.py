@@ -20,10 +20,11 @@ jobid=[]
 newjobid = []
 all=[]
 newresult=[]
+# 抓取搜尋職缺的頁數
 for page in range(1,55):
     url=f"https://www.104.com.tw/jobs/search/?ro=0&jobcat=2007002002%2C2007001012&kwop=11&keyword=python&expansionType=area%2Cspec%2Ccom%2Cjob%2Cwf%2Cwktm&order=14&asc=0&page={page}&mode=l&jobsource=2018indexpoc&langFlag=0&langStatus=0&recommendJob=1&hotJob=1"
     url1.append(url)
-
+#帶上 Headers 內的 Referer 參數，才可正常取得資料。
 headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36',
             'Referer': 'https://www.104.com.tw/job/'
@@ -34,13 +35,13 @@ for i in url1:
     soup = bs(resp.text,"html.parser")
     soup1.append(soup)
 
-
+#抓取每個職缺的網址
 for i in soup1:
     for n in range(len(i.find_all('a',class_='js-job-link'))):
         url=i.find_all('a',class_='js-job-link')[n].get('href').replace('//','')
         result.append(url)
 
-
+#取得每個職缺的id
 for i in result:
     job_id=i.split('/')[2][0:5]
     jobid.append(job_id)
@@ -51,7 +52,7 @@ for element in jobid:
     if element not in newjobid:
         newjobid.append(element)
 
-
+#欲抓取的內容是用javascripe沒有呈現在html文件，透過Network的XHR尋找 URL，以職缺的ID，帶上 Headers 內的 Referer 參數，才可正常取得資料。
 for i in newjobid:
     url = f'https://www.104.com.tw/job/ajax/content/{i}'
     headers = {
@@ -62,7 +63,7 @@ for i in newjobid:
     data = r.json()
     all.append(data)
 
-
+#將職缺資料轉換格式
 for i in all:
     try:
         job={        
@@ -91,12 +92,13 @@ for i in all:
     except:
         continue
 
+ #將整理好的資料，放進雲端資料庫
 con = pymysql.connect(
-      host= "azsqltop.mysql.database.azure.com",
-      port= 3306,
-      user= "jeff",
-      password= "@a0987399832",
-      database = "career")
+      host= "",
+      port= ,
+      user= "",
+      password= "",
+      database = "")
 cur = con.cursor()
 
 for i in range(len(newresult)):
