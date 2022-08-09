@@ -16,6 +16,12 @@ import pymysql
 import time,random
 
 url1=[]
+soup1=[]
+result=[]
+jobid=[]
+newjobid = []
+all=[]
+newresult=[]
 for page in range(1,55):
     url=f"https://www.104.com.tw/jobs/search/?ro=0&jobcat=2007002002%2C2007001012&kwop=11&keyword=python&expansionType=area%2Cspec%2Ccom%2Cjob%2Cwf%2Cwktm&order=14&asc=0&page={page}&mode=l&jobsource=2018indexpoc&langFlag=0&langStatus=0&recommendJob=1&hotJob=1"
     url1.append(url)
@@ -24,30 +30,30 @@ headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.92 Safari/537.36',
             'Referer': 'https://www.104.com.tw/job/'
              }
-soup1=[]
+
 for i in url1:
     resp = requests.get(i, headers=headers)
     soup = bs(resp.text,"html.parser")
     soup1.append(soup)
 
-result=[]
+
 for i in soup1:
     for n in range(len(i.find_all('a',class_='js-job-link'))):
         url=i.find_all('a',class_='js-job-link')[n].get('href').replace('//','')
         result.append(url)
 
-jobid=[]
+
 for i in result:
     job_id=i.split('/')[2][0:5]
     jobid.append(job_id)
 
-newjobid = []
+
  
 for element in jobid:
     if element not in newjobid:
         newjobid.append(element)
 
-all=[]
+
 for i in newjobid:
     url = f'https://www.104.com.tw/job/ajax/content/{i}'
     headers = {
@@ -58,7 +64,7 @@ for i in newjobid:
     data = r.json()
     all.append(data)
 
-newresult=[]
+
 for i in all:
     try:
         job={        
