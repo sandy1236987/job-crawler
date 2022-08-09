@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1JD8prZCFJDC_d11SdSatOqG-IAcJ_dTd
 """
 
-!pip install BeautifulSoup4
-!pip install pymysql
 from bs4 import  BeautifulSoup as bs
 import requests
 import json
